@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+	<style>
+		body {
+		  font-family: -apple-system, Helvetica, Arial, sans-serif;
+		}
+
+		input {
+		  height: 1em;
+		  font-size: 2em;
+		}
+
+		p {
+		  margin-left: 1em;
+		}
+
+		.hidden {
+		  display: none;
+		}
+
+		th {
+		  width: 50%;
+		}
+
+		#result {
+		  display: none;
+		}
+	</style>
+</head>
+<body>
+  <h2>Calculadora tarifa Uber em BH</h2>
+<div>
+  <form id="form">
+    <p class="hidden"><label for="uber-dist">Distância no Uber (ex.: 7):</label></p>
+    <p><input id="uber-dist" name="uber-dist" placeholder="Distância em KM" /></p>
+    <p class="hidden"><label for="uber-time">Tempo no Uber (ex.: 20):</label></p>
+    <p><input id="uber-time" name="uber-time" placeholder="Tempo em Minutos" /></p>
+    <!--<p><input type="submit" value="Calcular"></p>-->
+  </form>
+</div>
+
+<div id="result">
+  <table>
+    <theader>
+      <th>UberX</th>
+      <th>UberBlack</th>
+    </theader>
+    <tbody>
+      <td id="uberx-val"></td>
+      <td id="uberblack-val"></td>
+    </tbody>
+  </table>
+</div>
+<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+<script>
+$("form").keyup(function() {
+
+  var d = $('#uber-dist').val();
+  var t = $('#uber-time').val();
+
+  if (t && d && t > 0 && d > 0) {
+    var uberx = function(dist, time) {
+      var TARIFA = 3,
+          MIN = 0.25,
+          KM = 1.7;
+
+      return TARIFA + (dist*KM) + (time*MIN);
+    };
+
+    var uberb = function(dist, time) {
+      var TARIFA = 4.5,
+          MIN = 0.3,
+          KM = 2.17;
+
+      return TARIFA + (dist*KM) + (time*MIN);
+    };
+
+    var tarifa = function(type, d, t) {
+      return Math.round(type(d, t), 2);
+    };
+
+    $('#uberx-val').html(tarifa(uberx, d, t));
+    $('#uberblack-val').html(tarifa(uberb, d,t));
+
+    $('#result').show('slow');
+  }
+});
+</script>
+</body>
+</html>
