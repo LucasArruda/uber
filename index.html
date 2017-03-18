@@ -22,7 +22,7 @@
 		}
 
 		th {
-		  width: 50%;
+		  width: 33%;
 		}
 
 		#result {
@@ -31,7 +31,8 @@
 	</style>
 </head>
 <body>
-  <h2>Calculadora tarifa Uber em BH</h2>
+  <h1>Calculadora tarifa Uber em BH</h1>
+  <h2>UberX, UberSELECT, UberBLACK</h2>
 <div>
   <form id="form">
     <p class="hidden"><label for="uber-dist">Distância no Uber (ex.: 7):</label></p>
@@ -45,11 +46,13 @@
 <div id="result">
   <table>
     <theader>
-      <th>UberX</th>
-      <th>UberBlack</th>
+      <th>uberX</th>
+      <th>UberSELECT</th>
+      <th>UberBLACK</th>
     </theader>
     <tbody>
       <td id="uberx-val"></td>
+      <td id="uberselect-val"></td>
       <td id="uberblack-val"></td>
     </tbody>
   </table>
@@ -81,6 +84,17 @@ $("form").keyup(function() {
       return (price >= MINIMUM) ? price : MINIMUM;
     };
 
+    var ubers = function(dist, time) {
+      var TARIFA = 2.97,
+          MIN = 0.22,
+          KM = 1.63,
+          MINIMUM = 7.75;
+
+      var price = TARIFA + (dist*KM) + (time*MIN);
+
+      return (price >= MINIMUM) ? price : MINIMUM;
+    };
+
     var uberb = function(dist, time) {
       var TARIFA = 4.5,
           MIN = 0.3,
@@ -97,6 +111,7 @@ $("form").keyup(function() {
     };
 
     $('#uberx-val').html(tarifa(uberx, d, t));
+    $('#uberselect-val').html(tarifa(ubers, d, t));
     $('#uberblack-val').html(tarifa(uberb, d,t));
 
     $('#result').show('slow');
