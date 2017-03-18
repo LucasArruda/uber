@@ -63,19 +63,25 @@ $("form").keyup(function() {
 
   if (t && d && t > 0 && d > 0) {
     var uberx = function(dist, time) {
-      var TARIFA = 3,
-          MIN = 0.25,
-          KM = 1.7;
+      var TARIFA = 2.7,
+          MIN = 0.20,
+          KM = 1.48,
+          MINIMUM = 7;
 
-      return TARIFA + (dist*KM) + (time*MIN);
+      var price = TARIFA + (dist*KM) + (time*MIN);
+
+      return (price >= MINIMUM) ? price : MINIMUM;
     };
 
     var uberb = function(dist, time) {
       var TARIFA = 4.5,
           MIN = 0.3,
-          KM = 2.17;
+          KM = 2.17,
+          MINIMUM = 10;
 
-      return TARIFA + (dist*KM) + (time*MIN);
+      var price = TARIFA + (dist*KM) + (time*MIN);
+
+      return (price >= MINIMUM) ? price : MINIMUM;
     };
 
     var tarifa = function(type, d, t) {
